@@ -15,4 +15,6 @@ public class Taverns {
     public void addPersons(String[] persons) {
         this.persons.addAll(Arrays.asList(persons));
     }
+
+    public int getCountPersons(){return persons.size();}
 }

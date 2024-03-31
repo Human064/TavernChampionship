@@ -27,9 +27,14 @@ public class Main {
     }
 
     private static void DecksSelection(BufferedReader reader) throws IOException {
+        System.out.println("Введите количество игроков. Минимум 2, максимум " + taverns.getCountPersons());
         System.out.println("Количество игроков числом:");
         int countPeople = Integer.parseInt(reader.readLine()), i = 0;
 
+        while (countPeople < 2 || countPeople > taverns.getCountPersons()) {
+            System.out.println("Некорректное количество игроков! Попробуйте снова:");
+            countPeople = Integer.parseInt(reader.readLine());
+        }
         while (i < countPeople) i = getChange(reader, i);
     }
 
@@ -66,12 +71,12 @@ public class Main {
                 case 4:
                     taverns.addPersons(new String[]{"Капитан Уайтхоук", "Старпом Реми", "Боцман Брин", "Штурман Тара"});
                     break;
-//                case 5:
-//                    taverns.addPersons(new String[]{"Волшебник Зот", "Жрица Дейдре", "Герки Ловкач", "Фиона Вспыльчивая"});
-//                    break;
-//                case 6:
-//                    taverns.addPersons(new String[]{"Волшебник Зот", "Жрица Дейдре", "Герки Ловкач", "Фиона Вспыльчивая"});
-//                    break;
+                case 5:
+                    taverns.addPersons(new String[]{"Барахольщица Лизвик", "Пьяный мастер Захан", "Сэра Быстроногая", "Трикстер Джоран"});
+                    break;
+                case 6:
+                    taverns.addPersons(new String[]{"Даарека Гроза разума", "Барон фон Владло", "Амундир Проклятая", "Торгленарф Данкельтонский"});
+                    break;
                 case 7:
                     taverns.addPersons(new String[]{"Варторн Рыжебров", "Вышибала Джаспер", "Конюх Молли", "Девка Оливия"});
                     break;
@@ -83,6 +88,10 @@ public class Main {
         String first = taverns.getPerson(), second = taverns.getPerson();
 
         while (personsList.contains(first)) first = taverns.getPerson();
+        if (Math.abs(taverns.getCountPersons() - personsList.size()) < 2) {
+            System.out.println(first);
+            return counter + 1;
+        }
         while (personsList.contains(second) || second.equals(first)) second = taverns.getPerson();
 
         System.out.println(first + " или " + second);
@@ -92,14 +101,17 @@ public class Main {
         System.out.println("2 - " + second);
         System.out.println("0 - Ре рол");
 
-        switch (Integer.parseInt(reader.readLine())) {
-            case 1:
+        switch (reader.readLine()) {
+            case "1":
                 personsList.add(first);
                 break;
-            case 2:
+            case "2":
                 personsList.add(second);
                 break;
-            case 0:
+            case "0":
+                return counter;
+            default:
+                System.out.println("Некорректный выбор");
                 return counter;
 
         }
